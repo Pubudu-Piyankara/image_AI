@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import {  Poppins } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ClerkProvider } from "@clerk/nextjs";
 
-const poppins = Poppins({ 
+const sans = IBM_Plex_Sans({
   subsets: ["latin"],
   display: "swap",
   style: "normal",
-  weight: ["400", "700"],
-  variable: "--font-poppins",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-sans",
 });
 
 export const metadata: Metadata = {
@@ -22,8 +23,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn("font-poppins antialised", poppins.variable)}>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={cn("font-sans antialised", sans.variable)}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
